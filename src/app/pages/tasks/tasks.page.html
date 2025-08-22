@@ -1,0 +1,21 @@
+<h1>These are some of the new tasks!</h1>
+
+<p>yay!!!!!</p>
+
+<section>
+
+  @if (taskResource.error()) {
+  <p>Failed to retrieve tasks. Please try again.</p>
+  <p>{{taskResource.error()?.message}}</p>
+  <button (click)="taskResource.refresh()">Refresh</button>
+  }
+  @else {
+    @for (task of taskResource.value()?.data; track task.id) {
+    <div>
+      <h2>{{ task.title }}</h2>
+      <h2>{{ task.description }}</h2>
+    </div>
+  }
+  }
+  
+</section>
