@@ -1,0 +1,48 @@
+<mat-card class="task-card" appearance="raised">
+  @if (editMode()) {
+    <mat-card-content>
+      <mat-form-field class="edit-field">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="newTitle">
+      </mat-form-field>
+      <mat-form-field class="edit-field">
+        <mat-label>Description</mat-label>
+        <textarea class="description-text-area" matInput [(ngModel)]="newDescription"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+
+
+    <mat-card-actions class="button-row">
+      <button mat-mini-fab aria-label="save button" (click)="save()" [disabled]="(newTitle() === taskCardState.value()?.title) && (newDescription() === taskCardState.value()?.description)">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-mini-fab aria-label="cancel button" (click)="cancel()" [disabled]="taskCardState.error()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-card-actions>
+  }
+
+  @else {
+    <mat-card-header class="task-header">
+      <mat-card-title class="title">{{taskCardState.value()?.title}}</mat-card-title>
+      @if (taskCardState.value()?.completedDate) {
+        <mat-card-subtitle>{{taskCardState.value()?.completedDate}}</mat-card-subtitle>
+      }
+      <app-status-menu class="status-selector" [(taskStatus)]="updatedStatus" (taskChanged)="taskCardState.refresh()">yes</app-status-menu>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>{{taskCardState.value()?.description}}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="button-footer"> 
+      <button mat-mini-fab aria-label="edit button" (click)="editMode.set(true)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab aria-label="delete button" (click)="delete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  }
+</mat-card>
+  

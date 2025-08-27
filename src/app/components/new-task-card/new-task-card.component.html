@@ -1,0 +1,27 @@
+
+  <mat-card class="task-card" appearance="raised">
+  <mat-card-content>
+      <mat-form-field class="edit-field">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="newTitle">
+      </mat-form-field>
+      <mat-form-field class="edit-field">
+        <mat-label>Description</mat-label>
+        <textarea class="description-text-area" matInput [(ngModel)]="newDescription"></textarea>
+      </mat-form-field>
+      <mat-card-actions class="button-row">
+      <button mat-mini-fab aria-label="save button" (click)="save()" [disabled]="(newTitle().trim() === '') || (newDescription().trim() === '')">
+        <mat-icon>save</mat-icon>
+      </button>
+      <button mat-mini-fab aria-label="cancel button" (click)="cancel()" [disabled]="createTask.error()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      </mat-card-actions>
+    </mat-card-content>
+
+  @if (createTask.error()) {
+    <p>Failed to save task, try again!</p>
+  }
+  
+  </mat-card>
+

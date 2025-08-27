@@ -1,0 +1,25 @@
+.selector-button{
+  height: 30px;
+  border-radius: 15px;
+  border-color: black;
+  color: black;
+}
+.selector-button:hover{
+  cursor: pointer;
+}
+
+button {
+  color: black;
+}
+
+.Complete{
+  background-color: #E1E9C9;
+}
+
+.Incomplete{
+  background-color: #F7A5A5;
+}
+
+.InProgress{
+  background-color: #EDA35A
+}

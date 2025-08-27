@@ -1,21 +1,39 @@
-<h1>These are some of the new tasks!</h1>
-
-<p>yay!!!!!</p>
+<h1 class="main-title">Task page</h1>
 
 <section>
 
   @if (taskResource.error()) {
-  <p>Failed to retrieve tasks. Please try again.</p>
-  <p>{{taskResource.error()?.message}}</p>
-  <button (click)="taskResource.refresh()">Refresh</button>
+    <p>Failed to retrieve tasks. Please try again.</p>
+    <p>{{taskResource.error()?.message}}</p>
+    <button (click)="taskResource.refresh()">Refresh</button>
   }
-  @else {
-    @for (task of taskResource.value()?.data; track task.id) {
-    <div>
-      <h2>{{ task.title }}</h2>
-      <h2>{{ task.description }}</h2>
+  @if (taskResource.isLoading()) {
+    <div class="shade">
+      <mat-spinner />
     </div>
   }
+
+  @if (showCreate()) {
+    <app-new-task-card (cancelHandle)="showCreate.set(false)" (confirmHandle)="taskCreated()"></app-new-task-card>
   }
+  @for (task of taskResource.value()?.data; track task.id) {
+    <app-task-card [initialTaskValue]="task" (deleteTaskEvent)="deleteTask($event)"></app-task-card>
+  }
+
+  <button [disabled]="showCreate()" (click)="showCreate.set(true)" aria-label="create button" mat-fab>
+    <mat-icon>add</mat-icon>
+  </button>
+
+    <mat-paginator
+    [length]="taskResource.value()?.total" 
+    [pageSize]="PAGE_SIZE"
+    (page)="handlePageEvent($event)"
+    [hidePageSize]="true"
+    [showFirstLastButtons]="true" 
+  />
+
+  <br>
+  <br>
+  <br>
   
 </section>
