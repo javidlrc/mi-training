@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: DefaultLayout,
     children: [
       { path: 'admin', component: AdminPage, canActivate: [permissionGuard(['manage-users-full-access'])] },
-      { path: 'tasks', component: TasksPage, canActivate: [permissionGuard(['manage-users-full-access'])] },
+      { path: 'tasks', component: TasksPage, canActivate: [permissionGuard(['manage-tasks'])] },
       { path: 'server-error', component: ServerErrorPage },
       { path: 'forbidden', component: ForbiddenPage },
       { path: 'auth-error', component: AuthErrorPage },

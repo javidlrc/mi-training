@@ -29,6 +29,11 @@ export const getTasksByUser = authorizedProcedure
   .input(getTasksByUserInput)
   .output(getTasksByUserOutput)
   .mutation(async (opts) =>{
+    console.log({
+      input: opts.input,
+      userId: opts.ctx.userId
+    })
+    
     const total = await prisma.task.count({
       where: { userId: opts.ctx.userId }
     });
@@ -46,6 +51,8 @@ export const getTasksByUser = authorizedProcedure
       skip: opts.input.pageOffset,
       orderBy: { createdAt: 'desc' },
     });
+
+    console.log({ data, total })
 
     return { data, total };
   });
